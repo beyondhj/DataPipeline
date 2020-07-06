@@ -1,6 +1,16 @@
 # Compiled class file
 *.class
 
+# Generated files
+/bin/
+/gen/
+/out/
+/target/
+
+# Gradle files
+.gradle/
+build/
+
 # Log file
 *.log
 
@@ -21,3 +31,10 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Intellij
+*.iml
+.idea
+
+# Keystore files
+*.jks
