@@ -1,10 +1,3 @@
-# DataPipeline
-DataPipeline 是一款批流一体数据融合平台。无需任何代码，通过配置界面即可部署一条数据管道，提供功能：数据同步，数据传输、数据分发等功能。
-
-本项目受DTStack/flinkx启发，感谢！
-
-#配置样例
-```json
 {
     "creator": "JorJer",
     "version": "1",
@@ -38,8 +31,8 @@ DataPipeline 是一款批流一体数据融合平台。无需任何代码，通�
             "id": "3",
             "name": "输出",
             "type": "writer",
+            "format": "jdbc",
             "config": {
-                "format": "jdbc",
                 "driver": "com.mysql.jdbc.Driver",
                 "url": "jdbc:mysql://localhost/test?serverTimezone=UTC",
                 "dbtable": "t_order1",
@@ -59,4 +52,3 @@ DataPipeline 是一款批流一体数据融合平台。无需任何代码，通�
         }
     ]
 }
-```
