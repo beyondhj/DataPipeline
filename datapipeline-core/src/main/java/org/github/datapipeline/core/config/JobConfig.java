@@ -18,26 +18,23 @@
 
 package org.github.datapipeline.core.config;
 
+import com.clearspring.analytics.util.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import org.apache.commons.collections.MapUtils;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedAcyclicGraph;
+import org.jgrapht.traverse.LexBreadthFirstIterator;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * The configuration of job config
  */
 public class JobConfig {
-
-    private String version;
-
-    private SettingConfig settingConfig;
-
-    private DirectedAcyclicGraph<NodeData, DefaultEdge> graph = new DirectedAcyclicGraph<NodeData, DefaultEdge>(
-            DefaultEdge.class);
 
     public static JobConfig parse(String json) {
         Gson gson = new Gson();
@@ -47,6 +44,27 @@ public class JobConfig {
         return jobConfig;
     }
 
+    private String version;
+
+    private SettingConfig settingConfig;
+
+    private DirectedAcyclicGraph<NodeData, DefaultEdge> graph = new DirectedAcyclicGraph<NodeData, DefaultEdge>(
+            DefaultEdge.class);
+
+    private List<NodeData> graphNodes = Lists.newArrayList();
+
+    public String getVersion() {
+        return version;
+    }
+
+    public SettingConfig getSettingConfig() {
+        return settingConfig;
+    }
+
+    public List<NodeData> getGraphNodes() {
+        return graphNodes;
+    }
+
     private void init(Map<String, Object> map) {
         this.version = MapUtils.getString(map, "version");
         this.settingConfig = new SettingConfig((Map<String, Object>) MapUtils.getObject(map, "setting"));
@@ -54,6 +72,7 @@ public class JobConfig {
         Map<String, NodeData> nodeDatas = addGraphNodes(nodes);
         List<Map<String, Object>> edges = (List<Map<String, Object>>) MapUtils.getObject(map, "edges");
         addGraphEdges(nodeDatas, edges);
+        initGraphNodes();
     }
 
 
@@ -94,4 +113,20 @@ public class JobConfig {
         this.graph.addEdge(sourceVertex, targetVertex);
     }
 
+    private void initGraphNodes() {
+        LexBreadthFirstIterator<NodeData, DefaultEdge> breadthFirstIterator = new LexBreadthFirstIterator(graph);
+        while (breadthFirstIterator.hasNext()) {
+            NodeData next = breadthFirstIterator.next();
+            graphNodes.add(next);
+        }
+    }
+
+    public NodeData getGraphAncestor(NodeData vertex) {
+        Set<NodeData> ancestors = graph.getAncestors(vertex);
+        Iterator<NodeData> iterator = ancestors.iterator();
+        if (iterator.hasNext()) {
+            return iterator.next();
+        }
+        throw new IllegalStateException();
+    }
 }

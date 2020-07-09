@@ -1,6 +1,7 @@
 package org.github.datapipeline.core;
 
 import org.github.datapipeline.core.config.JobConfig;
+import org.github.datapipeline.core.config.NodeData;
 import org.github.datapipeline.core.options.JobOptions;
 import org.github.datapipeline.core.options.JobOptionsParser;
 import org.slf4j.Logger;
@@ -14,5 +15,8 @@ public class Main {
         JobOptions jobOptions = JobOptionsParser.parse(args).getJobOptions();
         JobConfig jobConfig = JobConfig.parse(jobOptions.getJobJson());
 
+        for (NodeData graphNode : jobConfig.getGraphNodes()) {
+
+        }
     }
 }
