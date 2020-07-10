@@ -22,7 +22,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Abstract Config
@@ -166,7 +168,6 @@ public abstract class AbstractConfig implements Serializable {
         throw new RuntimeException("can't cast " + key + " from " + ret.getClass().getName() + " to Long");
     }
 
-
     public boolean getBooleanVal(String key, boolean defaultValue) {
         Object ret = internalMap.get(key);
         if (ret == null) {
@@ -178,4 +179,20 @@ public abstract class AbstractConfig implements Serializable {
         throw new RuntimeException("can't cast " + key + " from " + ret.getClass().getName() + " to Long");
     }
 
+    public List<String> getStringList(String key) {
+        Object ret = internalMap.get(key);
+        if (ret == null) {
+            return null;
+        }
+        if (ret instanceof List) {
+            List<String> list = (List<String>) ret;
+            return list.stream().map(v -> String.valueOf(v)).collect(Collectors.<String>toList());
+        }
+        throw new RuntimeException("can't cast " + key + " from " + ret.getClass().getName() + " to List<String>");
+    }
+
+    public List<String> getStringList(String key, List<String> defaultValue) {
+        List<String> ret = getStringList(key);
+        return ret != null ? ret : defaultValue;
+    }
 }
