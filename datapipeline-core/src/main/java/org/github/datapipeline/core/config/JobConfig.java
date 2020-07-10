@@ -18,12 +18,11 @@
 
 package org.github.datapipeline.core.config;
 
-import com.clearspring.analytics.util.Lists;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.gson.Gson;
-import org.apache.commons.collections.MapUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DirectedAcyclicGraph;
 import org.jgrapht.traverse.LexBreadthFirstIterator;
@@ -39,7 +38,7 @@ import java.util.Set;
 public class JobConfig {
 
     public static JobConfig parse(String json) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();s
+        ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map = mapper.readValue(json, Map.class);
         JobConfig jobConfig = new JobConfig();
         jobConfig.init(map);
@@ -75,6 +74,7 @@ public class JobConfig {
 
     private void init(Map<String, Object> map) {
         this.version = MapUtils.getString(map, "version");
+        this.jobType = MapUtils.getString(map, "jobType");
         this.settingConfig = new SettingConfig((Map<String, Object>) MapUtils.getObject(map, "setting"));
         List<Map<String, Object>> nodes = (List<Map<String, Object>>) MapUtils.getObject(map, "nodes");
         Map<String, NodeData> nodeDatas = addGraphNodes(nodes);
