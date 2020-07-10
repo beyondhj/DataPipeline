@@ -29,9 +29,9 @@ DataPipeline 是一款批流一体数据融合平台。无需任何代码，通�
     {
       "id": "2",
       "name": "过滤",
-      "type": "sql",
+      "type": "filter",
       "config": {
-        "sql": "select *,case when id<10 then 'error' else 'ok' end as tag from t_order0"
+        "filter": "id > 0 and price > 1"
       }
     },
     {

@@ -8,8 +8,8 @@ import org.apache.spark.sql.SparkSession;
 import org.github.datapipeline.core.config.JobConfig;
 import org.github.datapipeline.core.config.NodeData;
 import org.github.datapipeline.core.factory.DataFrameFactory;
-import org.github.datapipeline.core.factory.ReaderFactory;
-import org.github.datapipeline.core.factory.WriterFactory;
+import org.github.datapipeline.core.factory.BatchReaderFactory;
+import org.github.datapipeline.core.factory.BatchWriterFactory;
 
 import java.util.Map;
 
@@ -21,11 +21,11 @@ public class SparkBatchJob {
         Map<String, Dataset<Row>> nodeDataset = Maps.newHashMap();
         for (NodeData graphNode : jobConfig.getGraphNodes()) {
             Dataset<Row> ancestorDataset = getAncestorDataset(jobConfig, nodeDataset, graphNode);
-            if (StringUtils.equals(graphNode.getType(), ReaderFactory.READ)) {
-                Dataset<Row> dataFrame = ReaderFactory.createReader(sparkSession, graphNode);
+            if (StringUtils.equals(graphNode.getType(), BatchReaderFactory.READ)) {
+                Dataset<Row> dataFrame = BatchReaderFactory.createReader(sparkSession, graphNode);
                 nodeDataset.put(graphNode.getId(), dataFrame);
-            } else if (StringUtils.equals(graphNode.getType(), WriterFactory.WRITE)) {
-                WriterFactory.createWriter(sparkSession, ancestorDataset, graphNode);
+            } else if (StringUtils.equals(graphNode.getType(), BatchWriterFactory.WRITE)) {
+                BatchWriterFactory.createWriter(sparkSession, ancestorDataset, graphNode);
             } else {
                 Dataset<Row> dataFrame = DataFrameFactory.createDataFrame(sparkSession, ancestorDataset, graphNode);
                 nodeDataset.put(graphNode.getId(), dataFrame);
