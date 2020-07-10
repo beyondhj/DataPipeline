@@ -19,6 +19,8 @@
 package org.github.datapipeline.core.config;
 
 import com.clearspring.analytics.util.Lists;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import org.apache.commons.collections.MapUtils;
@@ -36,13 +38,15 @@ import java.util.Set;
  */
 public class JobConfig {
 
-    public static JobConfig parse(String json) {
-        Gson gson = new Gson();
-        Map<String, Object> map = gson.fromJson(json, Map.class);
+    public static JobConfig parse(String json) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();s
+        Map<String, Object> map = mapper.readValue(json, Map.class);
         JobConfig jobConfig = new JobConfig();
         jobConfig.init(map);
         return jobConfig;
     }
+
+    private String jobType;
 
     private String version;
 
@@ -52,6 +56,10 @@ public class JobConfig {
             DefaultEdge.class);
 
     private List<NodeData> graphNodes = Lists.newArrayList();
+
+    public String getJobType() {
+        return jobType;
+    }
 
     public String getVersion() {
         return version;

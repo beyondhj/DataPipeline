@@ -25,10 +25,12 @@ import java.util.Map;
  */
 public class SettingConfig extends AbstractConfig {
 
+    public static final String APP_NAME = "appName";
+
+    public static final String MASTER = "master";
 
     public SettingConfig(Map<String, Object> map) {
         super(map);
-
     }
 
 
