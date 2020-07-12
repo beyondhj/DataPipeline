@@ -7,17 +7,17 @@ DataPipeline 是一款批流一体数据融合平台。无需任何代码，通�
 
 计划分为下面几个模块：
 
-**datapipeline-core**
+**1. datapipeline-core**
 
-Spark任务配置与运行。
+Spark任务。
 
-**datapipeline-designer**
+**2. datapipeline-designer**
 
 图形化配置。
 
-**datapipeline-scheduler**
+**3. datapipeline-scheduler**
 
-批任务调度。
+任务调度。
 
 # 配置样例
 ```json
