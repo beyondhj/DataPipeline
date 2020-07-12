@@ -23,7 +23,7 @@ Spark任务配置与运行。
 ```json
 {
   "jobType": "batch",
-  "version": "1",
+  "version": "1.0",
   "setting": {
     "appName": "DatabaseTest",
     "spark.sql.shuffle.partitions": 200
