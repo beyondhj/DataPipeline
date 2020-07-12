@@ -1,9 +1,25 @@
 # DataPipeline
 DataPipeline 是一款批流一体数据融合平台。无需任何代码，通过配置界面即可部署一条数据管道，提供功能：数据同步，数据传输、数据分发等功能。
 
-本项目受DTStack/flinkx启发，感谢！
+  <div align=center>
+     <img src=docs/images/data-pipeline-common-api.png width=600 />
+   </div>
 
-#配置样例
+计划分为下面几个模块：
+
+**datapipeline-core**
+
+Spark任务配置与运行。
+
+**datapipeline-designer**
+
+图形化配置。
+
+**datapipeline-scheduler**
+
+批任务调度。
+
+# 配置样例
 ```json
 {
   "jobType": "batch",
@@ -60,3 +76,5 @@ DataPipeline 是一款批流一体数据融合平台。无需任何代码，通�
   ]
 }
 ```
+
+本项目受DTStack/flinkx启发，感谢！

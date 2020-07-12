@@ -8,8 +8,9 @@
     <artifactId>datapipeline-all</artifactId>
     <packaging>pom</packaging>
     <version>0.1</version>
-    <modules>
 
+    <modules>
+        <module>datapipeline-core</module>
     </modules>
 
     <properties>
