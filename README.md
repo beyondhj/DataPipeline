@@ -2,7 +2,7 @@
 DataPipeline 是一款批流一体数据融合平台。无需任何代码，通过配置界面即可部署一条数据管道，提供功能：数据同步，数据传输、数据分发等功能。
 
   <div align=center>
-     <img src=docs/images/data-pipeline-common-api.png width=600 />
+     <img src=docs/images/data-pipeline-common-api.png />
    </div>
 
 计划分为下面几个模块：
