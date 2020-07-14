@@ -19,13 +19,34 @@ public class StreamWriterFactory {
         DataStreamWriter<Row> dataFrameWriter = ancestorDataset.writeStream();
         for (Map.Entry<String, Object> entry : graphNode.getConfig().getAll().entrySet()) {
             String key = entry.getKey();
-            String value = (String) entry.getValue();
+            Object value = entry.getValue();
+            if (invalidValue(value)) {
+                continue;
+            }
             if (StringUtils.equals(key, FORMAT)) {
-                dataFrameWriter.format(value);
-            } else {
-                dataFrameWriter.option(key, value);
+                dataFrameWriter.format((String) value);
+            } else if (value instanceof String) {
+                dataFrameWriter.option(key, (String) value);
+            } else if (value instanceof Long) {
+                dataFrameWriter.option(key, (Long) value);
+            } else if (value instanceof Integer) {
+                dataFrameWriter.option(key, (Integer) value);
+            } else if (value instanceof Double) {
+                dataFrameWriter.option(key, (Double) value);
+            } else if (value instanceof Boolean) {
+                dataFrameWriter.option(key, (Boolean) value);
             }
         }
         dataFrameWriter.start();
+    }
+
+    private static boolean invalidValue(Object value) {
+        if (value == null) {
+            return true;
+        }
+        if (value instanceof String && StringUtils.isBlank((String) value)) {
+            return true;
+        }
+        return false;
     }
 }
