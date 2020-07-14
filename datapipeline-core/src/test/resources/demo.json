@@ -17,18 +17,7 @@
         "dbtable": "t_order0",
         "user": "root",
         "password": "root",
-        "schema": [
-          {
-            "name": "id",
-            "dataType": "int",
-            "nullable": false
-          },
-          {
-            "name": "price",
-            "dataType": "float",
-            "nullable": false
-          }
-        ]
+        "schema": "id long, price float"
       }
     },
     {
