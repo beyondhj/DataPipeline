@@ -16,7 +16,19 @@
         "url": "jdbc:mysql://localhost/test?serverTimezone=UTC",
         "dbtable": "t_order0",
         "user": "root",
-        "password": "root"
+        "password": "root",
+        "schema": [
+          {
+            "name": "id",
+            "dataType": "int",
+            "nullable": false
+          },
+          {
+            "name": "price",
+            "dataType": "float",
+            "nullable": false
+          }
+        ]
       }
     },
     {
