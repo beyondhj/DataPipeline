@@ -10,7 +10,7 @@
     <version>0.1</version>
 
     <modules>
-        <module>datapipeline-core</module>
+        <module>datapipeline-core-spark</module>
     </modules>
 
     <properties>
