@@ -7,7 +7,7 @@ import org.github.datapipeline.core.flink.config.NodeData;
 
 public class BatchTableFactory {
 
-    public static Table evaluateTable(ExecutionEnvironment evn, BatchTableEnvironment tableEnv, NodeData graphNode) {
+    public static Table evaluateTable(ExecutionEnvironment evn, BatchTableEnvironment tableEnv, Table ancestorTable, NodeData graphNode) {
         Table table = tableEnv.sqlQuery(getQuery(graphNode));
         tableEnv.createTemporaryView(getTableName(graphNode), table);
         return table;

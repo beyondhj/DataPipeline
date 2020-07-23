@@ -7,7 +7,7 @@ import org.github.datapipeline.core.flink.config.NodeData;
 
 public class StreamTableFactory {
 
-    public static Table evaluateTable(StreamExecutionEnvironment evn, StreamTableEnvironment tableEnv, NodeData graphNode) {
+    public static Table evaluateTable(StreamExecutionEnvironment evn, StreamTableEnvironment tableEnv, Table ancestorTable, NodeData graphNode) {
         Table table = tableEnv.sqlQuery(getQuery(graphNode));
         tableEnv.createTemporaryView(getTableName(graphNode), table);
         return table;
