@@ -1,12 +1,8 @@
 package org.github.datapipeline.core.flink.factory;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.flink.api.common.io.OutputFormat;
-import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
-import org.apache.flink.table.api.Table;
+import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.bridge.java.BatchTableEnvironment;
-import org.apache.flink.types.Row;
 import org.github.datapipeline.core.flink.config.NodeData;
 
 public class BatchWriterFactory {
@@ -15,22 +11,17 @@ public class BatchWriterFactory {
 
     private static final String FORMAT = "format";
 
-    public static void createWriter(ExecutionEnvironment evn, BatchTableEnvironment tableEnv, Table ancestorTable, NodeData graphNode) {
-        DataSet<Row> dataSet = tableEnv.toDataSet(ancestorTable, Row.class);
-        dataSet.output(createOutputFormat(graphNode));
+    public static TableResult createWriter(ExecutionEnvironment evn, BatchTableEnvironment tableEnv, NodeData graphNode) {
+        tableEnv.executeSql(getOutputDDL(graphNode));
+        return tableEnv.executeSql(getOutputSql(graphNode));
     }
 
-    private static boolean invalidValue(Object value) {
-        if (value == null) {
-            return true;
-        }
-        if (value instanceof String && StringUtils.isBlank((String) value)) {
-            return true;
-        }
-        return false;
+    private static String getOutputDDL(NodeData graphNode) {
+        //TODO
+        return null;
     }
 
-    private static OutputFormat createOutputFormat(NodeData graphNode) {
+    private static String getOutputSql(NodeData graphNode) {
         //TODO
         return null;
     }

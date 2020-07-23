@@ -4,6 +4,7 @@ import org.apache.flink.api.common.io.InputFormat;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.operators.DataSource;
 import org.apache.flink.table.api.Table;
+import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.bridge.java.BatchTableEnvironment;
 import org.apache.flink.table.expressions.Expression;
 import org.github.datapipeline.core.flink.config.NodeData;
@@ -16,20 +17,15 @@ public class BatchReaderFactory {
 
     private static final String SCHEMA = "schema";
 
-    public static Table createReader(ExecutionEnvironment env, BatchTableEnvironment tableEnv, NodeData graphNode) {
-        DataSource dataStreamSource = env.createInput(createInputFormat(graphNode));
-        return tableEnv.fromDataSet(dataStreamSource, createFields(graphNode));
+    public static TableResult createReader(ExecutionEnvironment env, BatchTableEnvironment tableEnv, NodeData graphNode) {
+        return tableEnv.executeSql(getInputDDL(graphNode));
     }
 
 
-    private static InputFormat createInputFormat(NodeData graphNode) {
+    private static String getInputDDL(NodeData graphNode) {
         //TODO
         return null;
     }
 
-    private static Expression[] createFields(NodeData graphNode) {
-        //TODO
-        return null;
-    }
 
 }

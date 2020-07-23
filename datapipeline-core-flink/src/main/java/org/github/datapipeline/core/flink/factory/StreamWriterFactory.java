@@ -5,6 +5,7 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.apache.flink.table.api.Table;
+import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
 import org.github.datapipeline.core.flink.config.NodeData;
@@ -15,22 +16,17 @@ public class StreamWriterFactory {
 
     private static final String FORMAT = "format";
 
-    public static void createWriter(StreamExecutionEnvironment evn, StreamTableEnvironment tableEnv, Table ancestorTable, NodeData graphNode) {
-        DataStream<Row> dataStream = tableEnv.toAppendStream(ancestorTable, Row.class);
-        dataStream.addSink(createSinkFunction(graphNode));
+    public static TableResult createWriter(StreamExecutionEnvironment evn, StreamTableEnvironment tableEnv, NodeData graphNode) {
+        tableEnv.executeSql(getOutputDDL(graphNode));
+        return tableEnv.executeSql(getOutputSql(graphNode));
     }
 
-    private static boolean invalidValue(Object value) {
-        if (value == null) {
-            return true;
-        }
-        if (value instanceof String && StringUtils.isBlank((String) value)) {
-            return true;
-        }
-        return false;
+    private static String getOutputDDL(NodeData graphNode) {
+        //TODO
+        return null;
     }
 
-    private static SinkFunction createSinkFunction(NodeData graphNode) {
+    private static String getOutputSql(NodeData graphNode) {
         //TODO
         return null;
     }
