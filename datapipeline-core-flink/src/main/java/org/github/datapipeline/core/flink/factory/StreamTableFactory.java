@@ -1,14 +1,9 @@
 package org.github.datapipeline.core.flink.factory;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-import org.apache.flink.table.expressions.Expression;
 import org.github.datapipeline.core.flink.config.NodeData;
-
-import java.util.Collections;
-import java.util.List;
 
 public class StreamTableFactory {
 
